@@ -473,7 +473,6 @@ h1 {
   h2 {
     transform: translateY(-6vw) rotate(20deg);
     transform-origin: top left;
-    rotate: -20deg;
   }
 }
 
