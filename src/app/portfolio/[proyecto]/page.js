@@ -1,6 +1,6 @@
 import { getData } from "@/app/components/utils/getData";
+import Image from "next/image";
 
-// Genera los parámetros estáticos en build time
 export async function generateStaticParams() {
   const data = await getData();
 
@@ -73,12 +73,14 @@ export default async function Proyecto({ params }) {
       <section id="inner-header">
         <h1>{proyectoData.title.rendered}</h1>
         {proyectoData._embedded?.["wp:featuredmedia"]?.[0] && (
-          <img
+          <Image
             src={proyectoData._embedded["wp:featuredmedia"][0].source_url}
             alt={
               proyectoData.title.rendered + " " + "imagen destacada" ||
               "Imagen destacada"
             }
+            width={600}
+            height={300}
           />
         )}
       </section>
