@@ -1,0 +1,930 @@
+/* Globals */
+
+@font-face {
+  font-family: "Stinger";
+  src: url("/fonts/stinger-variable.ttf");
+}
+
+:root {
+  --light-blue: #a6e0ff;
+  --orange: #ffa161;
+  --black: #000;
+  --grey: #e6e6e6;
+  --white: #ffffff;
+  --pink: #ffc8e8;
+}
+
+:is([class*="u-text-style-"], h1, h2, h3, h4, h5, h6, p, blockquote) {
+  display: flow-root;
+}
+:is([class*="u-text-style-"], h1, h2, h3, h4, h5, h6, p, blockquote)::before {
+  content: "";
+  display: table;
+  margin-bottom: calc(-0.5lh + 0.32em);
+}
+:is([class*="u-text-style-"], h1, h2, h3, h4, h5, h6, p, blockquote)::after {
+  content: "";
+  display: table;
+  margin-bottom: calc(-0.5lh + 0.39em);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+body {
+  overflow-x: hidden;
+  user-select: none;
+}
+
+h2 {
+  font-family: "Stinger";
+  font-size: 3.9vw;
+  font-weight: 250;
+  font-variation-settings: "wdth" 700;
+  line-height: 1.2em;
+}
+
+h3 {
+  font-family: "Stinger";
+  font-size: 1.97vw;
+  font-weight: 250;
+  font-variation-settings: "wdth" 700;
+  line-height: 1.2em;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: "Stinger";
+  font-size: 1.5vw;
+  font-weight: 250;
+  font-variation-settings: "wdth" 700;
+  line-height: 1.2em;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+.button {
+  padding: 2vw;
+  background-color: var(--grey);
+  border-radius: 1.5vw;
+  display: block;
+  width: fit-content;
+  font-family: "Stinger";
+  font-size: 5vw;
+  font-weight: 250;
+  font-variation-settings: "wdth" 700;
+  line-height: 1em;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.button:hover {
+  font-weight: 800;
+  background-color: var(--pink);
+}
+
+#navbar {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  padding: 2vw;
+  font-family: "Stinger";
+  font-size: 2vw;
+  font-weight: 250;
+  font-variation-settings: "wdth" 700;
+  line-height: 1.1em;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 10;
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 1vw;
+  }
+}
+
+/* Loader */
+
+#loader {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100dvh;
+  background-color: var(--white);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+
+  h1 {
+    font-family: "Stinger";
+    font-size: 26vw;
+    font-weight: 250;
+    font-variation-settings: "wdth" 700;
+    line-height: 1.1em;
+  }
+
+  h2 {
+    text-align: right;
+    margin-top: 2vw;
+    line-height: 0.9em;
+  }
+}
+
+/* Transition */
+
+#transition {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 999;
+  display: flex;
+  background-color: white;
+  transform-origin: bottom;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+
+  h2 {
+    font-size: 10vw;
+  }
+}
+
+/* Home */
+
+#hero {
+  width: 100vw;
+  height: 100lvh;
+}
+
+#hero-content {
+  width: 100%;
+  height: 100%;
+  background-color: var(--orange);
+  overflow: hidden;
+  padding: 4vw;
+
+  img {
+    max-width: 90vw;
+    height: 75vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+  }
+}
+
+.seccion-home {
+  padding: 4vw;
+  position: relative;
+
+  h2 {
+    max-width: 24ch;
+  }
+
+  .ilustracion {
+    position: absolute;
+    top: 20vw;
+    width: 37.5vw;
+  }
+
+  .retrato {
+    width: 100%;
+    height: auto;
+  }
+  .bocadillo {
+    position: absolute;
+    width: 60%;
+    height: auto;
+    top: 10%;
+    left: 80%;
+  }
+}
+
+#servicios {
+  height: 60vw;
+
+  .button {
+    position: absolute;
+    bottom: 8vw;
+    right: 8vw;
+  }
+}
+
+#carrusel {
+  position: relative;
+  color: var(--white);
+  height: 300vh;
+  margin-bottom: 50vh;
+}
+
+#carrusel-content {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0 8vw;
+  opacity: 0;
+}
+
+.headline-estilo {
+  font-size: 6vw;
+  font-weight: 500;
+  line-height: 1em;
+}
+
+#carrusel-imagenes {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  top: 0;
+  padding-top: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+
+  .derecha {
+    margin-left: 4vw;
+  }
+
+  .izquierda {
+    margin-left: auto;
+    margin-right: 6vw;
+  }
+
+  .carrusel-imagen {
+    img {
+      border-radius: 3em;
+      height: auto;
+      object-fit: contain;
+      height: 40vh;
+      width: auto;
+      border-radius: 5vw;
+      overflow: hidden;
+    }
+  }
+}
+
+#destacado {
+  min-height: 50vw;
+  padding: 4vw;
+  position: relative;
+
+  h2 {
+    max-width: 20ch;
+  }
+
+  img {
+    position: absolute;
+    width: 30vw;
+    right: 8vw;
+    bottom: 0;
+  }
+}
+
+#contacto {
+  padding: 4vw;
+  position: relative;
+
+  ul {
+    list-style: none;
+    margin-top: 10vw;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    text-align: right;
+
+    h2 {
+      max-width: none;
+    }
+  }
+
+  h2 {
+    max-width: 24ch;
+  }
+}
+
+#clients {
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 4vw;
+
+  #lista-clientes {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1vw;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    li {
+      height: 20vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fafafa;
+      border-radius: 2vw;
+      padding: 2vw 6vw;
+    }
+  }
+}
+
+#footer-home {
+  padding: 4vw;
+  display: flex;
+  gap: 4vw;
+  min-height: 50vw;
+
+  h3 {
+    padding-bottom: 1vw;
+  }
+
+  ul {
+    list-style: none;
+    font-size: 2.6vw;
+    font-family: "Stinger";
+    font-weight: 250;
+    font-variation-settings: "wdth" 700;
+    line-height: 1.2em;
+  }
+
+  li {
+    opacity: 0.4;
+    transition: 0.4s ease-in-out all;
+  }
+
+  a {
+    text-wrap: wrap;
+  }
+
+  li:hover {
+    opacity: 0.8;
+  }
+}
+
+#articulos {
+  width: 100%;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25vw;
+  }
+}
+
+#footer-home-derecha {
+  display: flex;
+  flex-direction: column;
+  gap: 4vw;
+  width: 100%;
+}
+
+/* Portfolio */
+h1 {
+  font-family: "Stinger";
+  font-size: 8vw;
+  font-weight: 250;
+  font-variation-settings: "wdth" 700;
+  line-height: 1.2em;
+}
+
+#portfolio-header {
+  padding: 12vw 4vw 4vw 4vw;
+
+  h1 {
+    font-family: "Stinger";
+    font-size: 8vw;
+    font-weight: 250;
+    font-variation-settings: "wdth" 700;
+    line-height: 1.2em;
+  }
+}
+
+#portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 0 2vw 4vw;
+  gap: 1vw;
+}
+
+#portfolio-grid .card {
+  height: 30vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 2vw;
+  border-radius: 2vw;
+  overflow: hidden;
+
+  h2 {
+    font-family: "Stinger";
+    font-size: 1.97vw;
+    font-weight: 250;
+    font-variation-settings: "wdth" 700;
+    line-height: 1.2em;
+    color: var(--white);
+    transition: transform 0.4s ease-in-out;
+  }
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    z-index: -1;
+    background-color: var(--grey);
+  }
+}
+
+.arriba {
+  justify-content: flex-start;
+
+  h2 {
+    transform: translateY(-4vw);
+    transform-origin: top left;
+    rotate: -20deg;
+  }
+}
+
+.abajo {
+  justify-content: flex-end;
+
+  h2 {
+    transform: translateY(4vw);
+    transform-origin: top left;
+    rotate: 20deg;
+  }
+}
+
+.card:hover {
+  h2 {
+    transform: translateY(0vw);
+    rotate: 0deg;
+  }
+}
+
+#portfolio-grid .card:nth-child(6n + 1),
+#portfolio-grid .card:nth-child(6n + 2),
+#portfolio-grid .card:nth-child(6n + 3) {
+  grid-column: span 2;
+}
+
+#portfolio-grid .card:nth-child(6n + 4),
+#portfolio-grid .card:nth-child(6n + 5) {
+  grid-column: span 3;
+}
+
+#portfolio-grid .card:nth-child(6n) {
+  grid-column: 1 / -1;
+}
+
+/* About */
+
+#about-main {
+  h1 {
+    font-family: "Stinger";
+    font-size: 6vw;
+    font-weight: 250;
+    font-variation-settings: "wdth" 700;
+    line-height: 1.2em;
+  }
+}
+
+#first-section-about {
+  padding: 16vw 4vw;
+
+  h1 {
+    max-width: 75%;
+  }
+}
+
+#destacado-about {
+  padding: 4vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  article {
+    max-width: calc(100% / 1.5);
+  }
+
+  img {
+    max-height: 40vw;
+    object-fit: contain;
+    position: absolute;
+  }
+}
+
+#servicios-about {
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+
+  .line {
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--black);
+    margin-top: 1vw;
+  }
+
+  li {
+    padding-top: 1vw;
+  }
+
+  .lista-servicios {
+    list-style: none;
+    h3 {
+      text-transform: none;
+    }
+    p {
+      padding-top: 1vw;
+      max-width: 50%;
+    }
+  }
+}
+
+#final-about {
+  height: 100vw;
+  position: relative;
+}
+
+.final-img-about {
+  position: absolute;
+  height: auto;
+}
+
+#img-jaime {
+  width: 48vw;
+  z-index: -1;
+  left: 12.5vw;
+  top: 10vw;
+}
+
+#img-tomate {
+  width: 25.89vw;
+  right: 20vw;
+  top: 40vw;
+}
+
+#img-carpeta {
+  width: 18.23vw;
+  right: 10vw;
+  top: 15vw;
+  transition: transform 0.4s ease-in-out;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#img-carpeta:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+#footer {
+  padding: 2vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  #logo-footer {
+    font-family: "Stinger";
+    font-size: 6vw;
+    font-weight: 250;
+    font-variation-settings: "wdth" 700;
+    line-height: 0.7em;
+    user-select: none;
+  }
+}
+
+#contact-list-footer {
+  text-align: right;
+
+  h3 {
+    text-transform: none;
+  }
+  ul {
+    list-style: none;
+  }
+
+  li {
+    padding-top: 1vw;
+  }
+}
+
+/* Proyecto */
+
+#inner-header {
+  padding: 4vw;
+  height: 80vh;
+  display: flex;
+  align-items: flex-end;
+  color: var(--black);
+  position: relative;
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-color: var(--grey);
+  }
+}
+
+#inner-content {
+  padding: 4vw;
+
+  .fila {
+    max-height: 75vh;
+    display: flex;
+    gap: 2vw;
+
+    .columna {
+      width: 100%;
+      overflow: hidden;
+    }
+    img {
+      max-height: 75vh;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 2vw;
+    }
+  }
+}
+
+#inner-content > *:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+}
+
+.wpb-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4vw;
+
+  .text-block {
+    font-family: "Stinger";
+    font-size: 1.25vw;
+    font-weight: 250;
+    font-variation-settings: "wdth" 700;
+    line-height: 1.2em;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2vw;
+  }
+
+  .row {
+    display: flex;
+    padding: 0 4vw;
+    min-height: 70vh;
+    gap: 2vw;
+
+    .col {
+      width: 100%;
+      position: relative;
+    }
+  }
+}
+
+.texto {
+  padding: 1vw 0;
+}
+
+@media (max-width: 768px) {
+  h2,
+  .button {
+    font-size: 6vw;
+  }
+
+  #inner-content .fila {
+    flex-direction: column;
+  }
+
+  h3 {
+    font-size: 4vw;
+  }
+
+  p {
+    font-size: 3.5vw;
+  }
+
+  #about-main h1 {
+    font-size: 8vw;
+  }
+
+  #first-section-about h1 {
+    max-width: 100%;
+  }
+
+  #first-section-about {
+    padding: 25vh 4vw;
+    min-height: 50vh;
+  }
+
+  #destacado-about {
+    min-height: 50vh;
+  }
+
+  #destacado-about img {
+    max-height: 75vw;
+  }
+
+  #servicios {
+    height: 60vh;
+  }
+  #carrusel-imagenes .carrusel-imagen img {
+    height: 50vw;
+  }
+
+  .seccion-home .ilustracion {
+    top: 40%;
+  }
+
+  .seccion-home .ilustracion {
+    width: 60vw;
+  }
+  .headline-estilo {
+    font-size: 9vw;
+  }
+
+  #carrusel-imagenes .izquierda {
+    margin-left: auto;
+    margin-right: 6vw;
+  }
+
+  #destacado {
+    min-height: 40vh;
+  }
+
+  #contacto {
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    ul {
+      margin-top: 0;
+    }
+
+    .headline {
+      width: 85vw;
+    }
+  }
+  #navbar {
+    font-size: 6vw;
+    ul {
+      gap: 2vw;
+    }
+  }
+
+  #clients,
+  #contacto,
+  #destacado,
+  #servicios,
+  #footer-home {
+    padding: 4vw;
+    padding-bottom: 16vw;
+  }
+
+  #footer {
+    padding: 4vw;
+  }
+
+  #footer-home {
+    flex-direction: column;
+    padding-bottom: 16vw;
+  }
+
+  #footer-home ul {
+    font-size: 6vw;
+  }
+  #footer {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 6vw;
+
+    h3 {
+      font-size: 6vw;
+    }
+  }
+
+  #footer #logo-footer {
+    font-size: 16vw;
+    padding-bottom: 4vw;
+  }
+
+  #contact-list-footer {
+    text-align: left;
+  }
+  #contact-list-footer li {
+    padding-top: 4vw;
+  }
+  #portfolio-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 4vw;
+    padding: 0 4vw 8vw;
+  }
+
+  #portfolio-grid .card {
+    aspect-ratio: 1;
+    height: auto;
+    border-radius: 8vw;
+    width: 100%;
+    padding: 8vw;
+
+    * {
+      transform: rotate(0deg) translateY(0vw);
+    }
+
+    h2 {
+      font-size: 6vw;
+    }
+  }
+
+  #portfolio-grid .card:nth-child(6n + 1),
+  #portfolio-grid .card:nth-child(6n + 2),
+  #portfolio-grid .card:nth-child(6n + 3) {
+    grid-column: span 1;
+  }
+
+  #portfolio-grid .card:nth-child(6n + 4),
+  #portfolio-grid .card:nth-child(6n + 5) {
+    grid-column: span 1;
+  }
+  #portfolio-header {
+    padding: 24vw 4vw 4vw;
+  }
+
+  .arriba {
+    justify-content: flex-end;
+  }
+
+  .button {
+    border-radius: 4vw;
+    padding: 4vw;
+  }
+
+  #clients #lista-clientes {
+    grid-template-columns: repeat(4, 1fr);
+
+    li {
+      aspect-ratio: 1;
+      height: auto;
+      padding: 2vw 4vw;
+    }
+  }
+
+  #portfolio-header h1 {
+    font-size: 10vw;
+  }
+  #img-carpeta {
+    top: 8vw;
+  }
+}
