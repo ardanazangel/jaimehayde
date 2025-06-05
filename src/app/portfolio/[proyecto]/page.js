@@ -1,5 +1,14 @@
 import { getData } from "@/app/components/utils/getData";
 
+// Genera los parámetros estáticos en build time
+export async function generateStaticParams() {
+  const data = await getData();
+
+  return data.map((proyecto) => ({
+    proyecto: proyecto.slug,
+  }));
+}
+
 export async function generateMetadata({ params }) {
   const { proyecto } = await params;
   const data = await getData();

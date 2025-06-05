@@ -1,7 +1,12 @@
 export async function getData() {
   try {
     const response = await fetch(
-      `https://jaimehayde.com/wp-json/wp/v2/portfolio?_embed`
+      `https://jaimehayde.com/wp-json/wp/v2/portfolio?_embed`,
+      {
+        next: {
+          revalidate: 60, // Revalidar cada 60 segundos
+        },
+      }
     );
 
     if (!response.ok) {
