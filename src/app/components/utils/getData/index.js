@@ -1,7 +1,7 @@
 export async function getData() {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/portfolio?_embed`
+      `https://jaimehayde.com/wp-json/wp/v2/portfolio?_embed`
     );
 
     if (!response.ok) {
