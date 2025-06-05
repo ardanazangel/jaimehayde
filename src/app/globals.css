@@ -187,6 +187,7 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: contain;
+    width: auto;
   }
 }
 
@@ -470,7 +471,7 @@ h1 {
   justify-content: flex-start;
 
   h2 {
-    transform: translateY(-4vw);
+    transform: translateY(-6vw) rotate(20deg);
     transform-origin: top left;
     rotate: -20deg;
   }
@@ -480,16 +481,14 @@ h1 {
   justify-content: flex-end;
 
   h2 {
-    transform: translateY(4vw);
+    transform: translateY(6vw) rotate(20deg);
     transform-origin: top left;
-    rotate: 20deg;
   }
 }
 
 .card:hover {
   h2 {
-    transform: translateY(0vw);
-    rotate: 0deg;
+    transform: translateY(0vw) rotate(0deg);
   }
 }
 

@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function DestacadoHome() {
   gsap.registerPlugin(ScrollTrigger);
@@ -24,10 +25,12 @@ export default function DestacadoHome() {
           Mi trabajo ha sido destacado por diferentes medios especializados en
           el sector
         </h2>
-        <img
+        <Image
           src="/assets/destacado.svg"
           alt="Imagen de destacado"
           id="destacado-imagen"
+          width={600}
+          height={400}
         />
       </div>
     </section>

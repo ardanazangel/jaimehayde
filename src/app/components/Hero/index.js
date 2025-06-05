@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import SplitText from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/all";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   gsap.registerPlugin(SplitText);
@@ -92,7 +93,12 @@ export default function Hero() {
     <>
       <section id="hero">
         <div id="hero-content">
-          <img src="/assets/ilustracion-hero.webp" />
+          <Image
+            src="/assets/ilustracion-hero.webp"
+            alt="Ilustracion principal"
+            width={600}
+            height={300}
+          />
         </div>
       </section>
       <section id="servicios" className="seccion-home">
@@ -101,16 +107,20 @@ export default function Hero() {
           proyectos, marcas y <strong>empresas a nivel global.</strong>
         </h2>
         <div className="ilustracion">
-          <img
+          <Image
             src="/assets/soy-jaime-1.svg"
             alt="Ilustración retrato de Jaime"
             className="retrato"
-          ></img>
-          <img
+            width={200}
+            height={200}
+          />
+          <Image
             src="/assets/soy-jaime-2.svg"
             alt="Bocadillo de la ilustración"
             className="bocadillo"
-          ></img>
+            width={200}
+            height={200}
+          />
         </div>
         <Link href={"/portfolio"} className="button">
           Ver portfolio

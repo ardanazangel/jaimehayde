@@ -29,7 +29,6 @@ function extractImageIds(content) {
 function cleanShortcodes(content, imageMap = {}) {
   if (!content) return "";
 
-
   let cleaned = content
     .replace(/\[vc_column_text\]/g, '<div class="text-block">')
     .replace(/\[\/vc_column_text\]/g, "</div>")
