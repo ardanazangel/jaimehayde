@@ -471,7 +471,7 @@ h1 {
   justify-content: flex-start;
 
   h2 {
-    transform: translateY(-6vw) rotate(20deg);
+    transform: translateY(-6vw) rotate(-20deg);
     transform-origin: top left;
   }
 }
