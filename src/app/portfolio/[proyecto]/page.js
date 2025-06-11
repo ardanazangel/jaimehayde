@@ -1,6 +1,7 @@
 import { getData } from "@/app/components/utils/getData";
 import Image from "next/image";
 
+// Generación de rutas estáticas para cada proyecto
 export async function generateStaticParams() {
   const data = await getData();
 
@@ -9,24 +10,92 @@ export async function generateStaticParams() {
   }));
 }
 
+// Generación de metadatos para SEO
 export async function generateMetadata({ params }) {
   const { proyecto } = await params;
   const data = await getData();
   const proyectoData = data.find((item) => item.slug === proyecto);
 
   return {
-    title:
-      proyectoData?.title.rendered + " " + "- Jaime Hayde" ||
-      "Proyecto no encontrado",
+    title: proyectoData?.title?.rendered
+      ? `${proyectoData.title.rendered} - Jaime Hayde`
+      : "Proyecto no encontrado",
     description:
       proyectoData?.excerpt?.rendered || "Detalles del proyecto seleccionado",
   };
 }
 
+const normalizeQuotes = (str) =>
+  str.replace(/&raquo;|»|“|”|&#8243;/g, '"').replace(/&laquo;/g, '"');
+
+const getImageById = async (id) => {
+  try {
+    const res = await fetch(
+      `https://shop.jaimehayde.com/wp-json/wp/v2/media/${id}`
+    );
+    if (!res.ok) throw new Error("No se pudo obtener la imagen");
+    const data = await res.json();
+    return data.source_url;
+  } catch (error) {
+    console.error("Error obteniendo la imagen:", error);
+    return null;
+  }
+};
+
+const parseContent = async (rawContent) => {
+  const content = normalizeQuotes(rawContent);
+  const regex =
+    /\[vc_row\](.*?)\[\/vc_row\]|\[vc_column.*?\](.*?)\[\/vc_column\]|\[vc_column_text.*?\](.*?)\[\/vc_column_text\]|\[vc_single_image.*?image="(\d+)".*?\]/g;
+
+  const elements = [];
+  let match;
+
+  while ((match = regex.exec(content)) !== null) {
+    if (match[1]) {
+      elements.push(
+        <div className="vc-row" key={elements.length}>
+          {await parseContent(match[1])}
+        </div>
+      );
+    } else if (match[2]) {
+      elements.push(
+        <div className="vc-column" key={elements.length}>
+          {await parseContent(match[2])}
+        </div>
+      );
+    } else if (match[3]) {
+      elements.push(
+        <p
+          key={elements.length}
+          dangerouslySetInnerHTML={{ __html: match[3] }}
+        />
+      );
+    } else if (match[4]) {
+      const imageUrl = await getImageById(match[4]);
+      if (imageUrl) {
+        elements.push(
+          <Image
+            key={elements.length}
+            src={imageUrl}
+            alt="Imagen del proyecto"
+            width={600}
+            height={300}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCABdAF0DASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAQACA//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDAIZUJJQEEEQQCSAAgHQJIBIKIggiCASAIEA2kkACFEQgJCBAgECAbSSABCiSQFJAgQASQNghBBJRJICkgQIAJIGwQgEkokkBSQIEAAQD/2Q=="
+          />
+        );
+      } else {
+        elements.push(<p key={elements.length}>Imagen no disponible</p>);
+      }
+    }
+  }
+
+  return elements;
+};
+
 export default async function Proyecto({ params }) {
   const { proyecto } = await params;
   const data = await getData();
-
   const proyectoData = data.find((item) => item.slug === proyecto);
 
   if (!proyectoData) {
@@ -37,55 +106,13 @@ export default async function Proyecto({ params }) {
     );
   }
 
-  const processedContent = proyectoData.content.rendered
-    .replace(/data-src="/g, 'src="')
-    .replace(/class="([^"]*?)lazyload([^"]*?)"/g, 'class="$1$2"')
-    .replace(/src="data:image\/gif;base64,[^"]*"/g, "")
-    // Simplificar clases de Visual Composer
-    .replace(/vc_row wpb_row vc_row-fluid/g, "fila")
-    .replace(/wpb_column vc_column_container/g, "columna")
-    .replace(/vc_col-sm-(\d+)/g, "")
-    .replace(/wpb_single_image wpb_content_element/g, "imagen")
-    .replace(/wpb_text_column wpb_content_element/g, "texto")
-    .replace(/vc_align_center/g, "centrado")
-    // Limpiar atributos innecesarios de imágenes
-    .replace(/data-srcset="[^"]*"/g, "")
-    .replace(/data-sizes="[^"]*"/g, "")
-    .replace(/decoding="async"/g, "")
-    .replace(/style="[^"]*"/g, "")
-    .replace(
-      /class="vc_single_image-img attachment-full [^"]*"/g,
-      'class="inner-img"'
-    )
-    .replace(/width="\d+"/g, "")
-    .replace(/height="\d+"/g, "")
-    // Agregar loading="lazy" a todas las imágenes
-    .replace(/<img([^>]*?)>/g, (match) => {
-      // Solo agregar si no tiene ya loading="lazy"
-      if (match.includes("loading=")) {
-        return match;
-      }
-      return match.replace(">", ' loading="lazy">');
-    });
+  const parsedContent = await parseContent(proyectoData.content.rendered);
 
   return (
     <main>
-      <section id="inner-header">
-        <h1>{proyectoData.title.rendered}</h1>
-        {proyectoData._embedded?.["wp:featuredmedia"]?.[0] && (
-          <Image
-            src={proyectoData._embedded["wp:featuredmedia"][0].source_url}
-            alt={
-              proyectoData.title.rendered + " " + "imagen destacada" ||
-              "Imagen destacada"
-            }
-            width={600}
-            height={300}
-          />
-        )}
-      </section>
       <section id="inner-content">
-        <div dangerouslySetInnerHTML={{ __html: processedContent }} />
+        <h1>{proyectoData.title.rendered}</h1>
+        {parsedContent}
       </section>
     </main>
   );

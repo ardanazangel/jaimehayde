@@ -94,10 +94,11 @@ export default function Hero() {
       <section id="hero">
         <div id="hero-content">
           <Image
-            src="/assets/ilustracion-hero.webp"
+            src="/assets/portada.svg"
             alt="Ilustracion principal"
             width={600}
             height={300}
+            priority
           />
         </div>
       </section>

@@ -11,9 +11,7 @@ export default function About() {
   return (
     <main id="about-main">
       <section id="first-section-about">
-        <h1>
-          Jaime Hayde es un ilustrador apasionado por los gráficos vectoriales.
-        </h1>
+        <h1>Soy un ilustrador apasionado por los gráficos vectoriales.</h1>
       </section>
       <DestacadoAbout />
       <ServiciosAbout />

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Transition from "./components/Transition";
 import TransitionLink from "./components/TransitionLink";
 import Footer from "./components/Footer";
-import { getPosts } from "./components/utils/getData";
+import Navbar from "./components/Navbar";
 
 export const metadata = {
   title: "Jaime Hayde",
@@ -15,27 +15,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  <getPosts />;
   return (
     <html lang="es">
       <body>
         <ReactLenis root>
-          <nav id="navbar">
-            <ul>
-              <li>
-                <TransitionLink href={"/"}>Home</TransitionLink>
-              </li>
-              <li>
-                <TransitionLink href={"/portfolio"}>Portfolio</TransitionLink>
-              </li>{" "}
-              <li>
-                <Link href={""}>Shop</Link>
-              </li>{" "}
-              <li>
-                <TransitionLink href={"/about"}>About</TransitionLink>
-              </li>
-            </ul>
-          </nav>
+          <Navbar />
+
           <div id="transition-wrapper">{children}</div>
           <Transition />
           <Footer />
