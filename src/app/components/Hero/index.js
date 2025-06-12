@@ -42,27 +42,29 @@ export default function Hero() {
       );
     });
 
-    gsap.to("#hero", {
-      padding: "4vw",
-      ease: "linear",
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+    if (window.innerWidth > 768) {
+      gsap.to("#hero", {
+        padding: "4vw",
+        ease: "linear",
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
 
-    gsap.to("#hero-content", {
-      borderRadius: "4vw",
-      ease: "linear",
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+      gsap.to("#hero-content", {
+        borderRadius: "4vw",
+        ease: "linear",
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
 
     gsap.fromTo(
       ilustracionAbout,

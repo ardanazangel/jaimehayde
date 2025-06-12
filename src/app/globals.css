@@ -748,6 +748,26 @@ h1 {
     font-size: 3.5vw;
   }
 
+  #hero {
+    height: 50vh;
+    position: relative;
+    padding: 2vw;
+    margin-top: 12vw;
+  }
+
+  #hero-content {
+    border-radius: 4vw;
+  }
+
+  #hero-content img {
+    height: 100%;
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   #about-main h1 {
     font-size: 8vw;
   }
@@ -770,14 +790,14 @@ h1 {
   }
 
   #servicios {
-    height: 60vh;
+    height: 50vh;
   }
   #carrusel-imagenes .carrusel-imagen img {
     height: 50vw;
   }
 
   .seccion-home .ilustracion {
-    top: 40%;
+    top: 30%;
   }
 
   .seccion-home .ilustracion {

@@ -18,7 +18,6 @@ export default function Home() {
       <Hero />
       <HomeCarrusel />
       <Clients />
-
       <DestacadoHome />
       <ContactHome />
       <FooterHome />
