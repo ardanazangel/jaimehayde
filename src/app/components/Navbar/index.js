@@ -54,7 +54,7 @@ export default function Navbar() {
           <TransitionLink href={"/portfolio"}>Portfolio</TransitionLink>
         </li>
         <li className="u-text-style-">
-          <Link href={""}>Shop</Link>
+          <Link href={"https://shop.jaimehayde.com/"}>Shop</Link>
         </li>
         <li className="u-text-style-">
           <TransitionLink href={"/about"}>About</TransitionLink>
